@@ -1,6 +1,6 @@
 {
   "name": "@micro-nest/common",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Microservices decorators and helpers for nest",
   "type": "commonjs",
   "types": "dist/index.d.ts",
