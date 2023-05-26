@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npx tsc",
     "push": "tsc && npm version patch && npm publish",
-    "publish": "tsc && npm version patch && npm publish && git add . && git commit -m 'publish' && git push origin main"
+    "sync": "tsc && npm version patch && npm publish && git add . && git commit -m 'publish' && git push origin main"
   },
   "author": "lovneet",
   "license": "MIT",
