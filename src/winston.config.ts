@@ -12,6 +12,19 @@ import {
 require("dotenv").config();
 
 export const getLoggerConfig = (): LoggerOptions => {
+  const transports: any = [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        utilities.format.nestLike(process.env.SERVER_NAME || "Dev", {
+          prettyPrint: true,
+        })
+      ),
+    }),
+  ];
+  if (process.env.LOGTAIL_KEY) {
+    transports.push(new LogtailTransport(new Logtail(process.env.LOGTAIL_KEY)));
+  }
   return {
     format: winston.format.combine(
       winston.format.errors({ stack: true }),
@@ -24,17 +37,7 @@ export const getLoggerConfig = (): LoggerOptions => {
           }`
       )
     ),
-    transports: [
-      new LogtailTransport(new Logtail(process.env.LOGTAIL_KEY || "")),
-      new winston.transports.Console({
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          utilities.format.nestLike(process.env.SERVER_NAME || "Dev", {
-            prettyPrint: true,
-          })
-        ),
-      }),
-    ],
+    transports,
   };
 };
 
